@@ -1,0 +1,55 @@
+<section class="contact container">
+  <h1>Kontakt</h1>
+  <p>Schreiben Sie uns – wir melden uns schnellstmöglich zurück.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- Honeypot (unsichtbar für Menschen) -->
+    <label style="display:none;">
+      Firmenfeld
+      <input type="text" formControlName="hp" autocomplete="off" tabindex="-1" />
+    </label>
+
+    <label>
+      Name*
+      <input type="text" formControlName="name" />
+    </label>
+    <div class="error" *ngIf="form.controls.name.touched && form.controls.name.invalid">
+      Bitte Ihren Namen eingeben.
+    </div>
+
+    <label>
+      E‑Mail*
+      <input type="email" formControlName="email" />
+    </label>
+    <div class="error" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+      Bitte eine gültige E‑Mail eingeben.
+    </div>
+
+    <label>
+      Nachricht* (mind. 10 Zeichen)
+      <textarea rows="5" formControlName="message"></textarea>
+    </label>
+    <div class="error" *ngIf="form.controls.message.touched && form.controls.message.invalid">
+      Bitte Ihre Nachricht eingeben.
+    </div>
+
+    <label class="agree">
+      <input type="checkbox" formControlName="agree" />
+      Ich stimme der Verarbeitung meiner Daten gemäß Datenschutz zu.*
+    </label>
+    <div class="error" *ngIf="form.controls.agree.touched && form.controls.agree.invalid">
+      Bitte Zustimmung erteilen.
+    </div>
+
+    <button type="submit" [disabled]="form.invalid || loading">
+      {{ loading ? 'Senden…' : 'Absenden' }}
+    </button>
+  </form>
+
+  <p *ngIf="success" style="color:#16a34a; font-weight:600; margin-top:8px;">
+    Danke! Ihre Nachricht wurde gesendet.
+  </p>
+  <p *ngIf="error" style="color:#dc2626; font-weight:600; margin-top:8px;">
+    {{ error }}
+  </p>
+</section>
