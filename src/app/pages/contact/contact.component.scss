@@ -28,7 +28,6 @@
   margin: 0 0 20px 0;
   font-size: clamp(20px, 2.8vw, 28px);
   font-weight: 700;
-  letter-spacing: 0.2px;
 }
 
 .field {
@@ -85,9 +84,7 @@ textarea:focus {
   color: var(--muted);
 }
 
-.hint.error {
-  color: var(--danger);
-}
+.hint.error { color: var(--danger); }
 
 .btn {
   appearance: none;
@@ -118,15 +115,13 @@ textarea:focus {
 .alert.success {
   background: rgba(30,201,127,0.12);
   border: 1px solid rgba(30,201,127,0.35);
-  color: var(--text);
 }
 .alert.error {
   background: rgba(255,107,107,0.12);
   border: 1px solid rgba(255,107,107,0.35);
-  color: var(--text);
 }
 
-/* Visuell verbergen, aber zugänglich lassen (für Honeypot & Screenreader) */
+/* Screenreader-only -> DOM bleibt sichtbar (für Honeypot) */
 .sr-only {
   position: absolute !important;
   width: 1px; height: 1px;
