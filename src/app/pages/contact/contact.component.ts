@@ -1,72 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
-
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private route: ActivatedRoute
-  ) {}
-
-  loading = false;
-  success = false;
-  error = '';
+export class ContactComponent {
+  sending = false;
+  success: string | null = null;
+  error: string | null = null;
 
   form = this.fb.group({
-    name: ['', Validators.required],
+    name: [''],
     email: ['', [Validators.required, Validators.email]],
-    message: ['', [Validators.required, Validators.minLength(10)]],
+    message: ['', [Validators.required, Validators.minLength(5)]],
     agree: [false, Validators.requiredTrue],
-    // Honeypot: echte Nutzer lassen es leer
-    hp: ['']
+    hp: [''], // <— wichtig: existiert für formControlName="hp"
   });
 
-  ngOnInit(): void {
-    const product = this.route.snapshot.queryParamMap.get('product');
-    if (product) {
-      const pre = `Anfrage zu: ${product}\n\n`;
-      this.form.patchValue({ message: pre + (this.form.value.message ?? '') });
-    }
-  }
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   submit() {
-    if (this.form.invalid || this.loading) {
-      this.form.markAllAsTouched();
+    this.error = this.success = null;
+    if (this.form.invalid) {
+      this.error = 'Bitte Formular prüfen.';
       return;
     }
-    if (this.form.value.hp) {
-      // Bot erkannt (Honeypot gefüllt) – wir tun so als wäre es ok
-      this.success = true;
-      this.form.reset();
-      return;
-    }
-
-    this.loading = true;
-    this.success = false;
-    this.error = '';
-
-    this.http.post('/api/contact', {
-      name: this.form.value.name,
-      email: this.form.value.email,
-      message: this.form.value.message,
-      agree: this.form.value.agree
-    }, { headers: { 'Content-Type': 'application/json' } })
-    .subscribe({
-      next: () => { this.success = true; this.form.reset(); },
-      error: () => { this.error = 'Senden fehlgeschlagen. Bitte später erneut versuchen.'; }
-    })
-    .add(() => this.loading = false);
+    this.sending = true;
+    this.http.post('/api/contact', this.form.value, {
+      headers: { 'Content-Type': 'application/json' },
+    }).subscribe({
+      next: () => {
+        this.success = 'Nachricht wurde gesendet.';
+        this.form.reset({ agree: false, hp: '' });
+        this.sending = false;
+      },
+      error: (err) => {
+        this.error = 'Senden fehlgeschlagen.';
+        console.error(err);
+        this.sending = false;
+      }
+    });
   }
 }
