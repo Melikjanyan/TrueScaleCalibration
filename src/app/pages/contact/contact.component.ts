@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss'],   // <-- WICHTIG
 })
 export class ContactComponent {
   sending = false;
@@ -19,7 +20,7 @@ export class ContactComponent {
     email: ['', [Validators.required, Validators.email]],
     message: ['', [Validators.required, Validators.minLength(5)]],
     agree: [false, Validators.requiredTrue],
-    hp: [''], // <— wichtig: existiert für formControlName="hp"
+    hp: [''],
   });
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}

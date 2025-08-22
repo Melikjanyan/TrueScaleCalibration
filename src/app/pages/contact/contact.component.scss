@@ -1,5 +1,4 @@
 :root {
-  --bg: #0b0f14;
   --panel: #111722;
   --panel-2: #0e1320;
   --text: #e8edf5;
@@ -30,24 +29,12 @@
   font-weight: 700;
 }
 
-.field {
-  display: grid;
-  gap: 8px;
-  margin-bottom: 16px;
-}
+.field { display: grid; gap: 8px; margin-bottom: 16px; }
+.field.checkbox { align-items: start; }
 
-.field.checkbox {
-  align-items: start;
-}
+label { color: var(--muted); font-size: 14px; }
 
-label {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
+input[type="text"], input[type="email"], textarea {
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
@@ -55,36 +42,23 @@ textarea {
   background: rgba(255,255,255,0.03);
   color: var(--text);
   outline: none;
-  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  transition: border-color .15s, box-shadow .15s, background .15s;
 }
 
 textarea { resize: vertical; min-height: 120px; }
 
-input::placeholder,
-textarea::placeholder {
-  color: rgba(232,237,245,0.45);
-}
+input::placeholder, textarea::placeholder { color: rgba(232,237,245,0.45); }
 
-input:focus,
-textarea:focus {
+input:focus, textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 4px var(--ring);
   background: rgba(255,255,255,0.05);
 }
 
-.invalid,
 .ng-invalid.ng-touched {
   border-color: var(--danger) !important;
   box-shadow: 0 0 0 3px rgba(255,107,107,0.25) !important;
 }
-
-.hint {
-  font-size: 12px;
-  line-height: 1.3;
-  color: var(--muted);
-}
-
-.hint.error { color: var(--danger); }
 
 .btn {
   appearance: none;
@@ -95,37 +69,22 @@ textarea:focus {
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: transform .06s ease, filter .2s ease;
+  transition: transform .06s, filter .2s;
   box-shadow: 0 6px 20px rgba(91,140,255,0.35);
 }
 .btn:hover { filter: brightness(1.06); }
 .btn:active { transform: translateY(1px); }
-.btn:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-  filter: saturate(.8);
-}
+.btn:disabled { opacity: .6; cursor: not-allowed; filter: saturate(.8); }
 
-.alert {
-  margin-top: 14px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-size: 14px;
-}
-.alert.success {
-  background: rgba(30,201,127,0.12);
-  border: 1px solid rgba(30,201,127,0.35);
-}
-.alert.error {
-  background: rgba(255,107,107,0.12);
-  border: 1px solid rgba(255,107,107,0.35);
-}
+.alert { margin-top: 14px; padding: 10px 12px; border-radius: 10px; font-size: 14px; }
+.alert.success { background: rgba(30,201,127,0.12); border: 1px solid rgba(30,201,127,0.35); color: var(--text); }
+.alert.error   { background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.35); color: var(--text); }
 
-/* Screenreader-only -> DOM bleibt sichtbar (für Honeypot) */
+/* SR-only: nicht display:none, damit Bots reinfallen können */
 .sr-only {
   position: absolute !important;
   width: 1px; height: 1px;
   padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0, 0, 0, 0);
+  overflow: hidden; clip: rect(0,0,0,0);
   white-space: nowrap; border: 0;
 }
