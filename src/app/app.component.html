@@ -6,10 +6,24 @@
     </div>
 
     <nav class="nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Start</a>
-      <a href="#">Leistungen</a>
-      <a routerLink="/kontakt" routerLinkActive="active">Kontakt</a>
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+       [routerLinkActiveOptions]= "{ exact: true }"
+
+      >
+        {{ 'nav.start' | translate }}
+      </a>
+
+      <a href="#">{{ 'nav.services' | translate }}</a>
+
+      <a routerLink="/kontakt" routerLinkActive="active">
+        {{ 'nav.contact' | translate }}
+      </a>
     </nav>
+
+    <!-- Sprachschalter rechts neben der Nav -->
+    <app-language-toggle class="lang-switch"></app-language-toggle>
   </div>
 </header>
 

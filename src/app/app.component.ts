@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageToggleComponent } from './shared/language-toggle.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, TranslateModule, LanguageToggleComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'TrueScaleCalibration';
+  constructor(private t: TranslateService) {
+    const saved = localStorage.getItem('lang') || this.t.getDefaultLang() || 'de';
+    this.t.use(saved);
+    document.documentElement.lang = saved;
+  }
 }

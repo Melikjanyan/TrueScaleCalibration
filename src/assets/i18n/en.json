@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "start": "Home",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "alt": "Laboratory environment",
+      "title": "Precision in every measurement",
+      "lead": "Calibrations with traceability & transparent certificates.",
+      "ctaOnline": "Online Order",
+      "ctaAccreditation": "Accreditation"
+    },
+    "intro": {
+      "title": "Why TrueScale Calibration?",
+      "text": "Fast turnaround times, digital certificates and optional pickup & delivery service."
+    }
+  }
+}

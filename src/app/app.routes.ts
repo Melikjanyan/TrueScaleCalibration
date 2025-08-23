@@ -1,15 +1,10 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    loadComponent: () =>
-      import('./pages/home/home.component').then(m => m.HomeComponent),
-  },
-  {
-    path: 'kontakt',
-    loadComponent: () =>
-      import('./pages/contact/contact.component').then(m => m.ContactComponent),
-  },
-  { path: '**', redirectTo: '' }, // alles Unbekannte -> Start
+  { path: '', component: HomeComponent, pathMatch: 'full', title: 'Start' },
+  { path: 'kontakt', component: ContactComponent, title: 'Kontakt' },
+  { path: '**', redirectTo: '' },
 ];

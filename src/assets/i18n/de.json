@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "start": "Start",
+    "services": "Leistungen",
+    "contact": "Kontakt"
+  },
+  "home": {
+    "hero": {
+      "alt": "Laborumgebung",
+      "title": "Präzision in jeder Messung",
+      "lead": "Kalibrierungen mit Rückführbarkeit & transparenten Zertifikaten.",
+      "ctaOnline": "Online-Auftrag",
+      "ctaAccreditation": "Akkreditierung"
+    },
+    "intro": {
+      "title": "Warum TrueScale Calibration?",
+      "text": "Schnelle Durchlaufzeiten, digitale Zertifikate und auf Wunsch Abhol- & Lieferservice."
+    }
+  }
+}
