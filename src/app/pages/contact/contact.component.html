@@ -1,36 +1,69 @@
 <form class="contact-form" (ngSubmit)="submit()" [formGroup]="form" novalidate>
   <h2 class="form-title">Schreib mir eine Nachricht</h2>
 
-  <div class="field">
-    <label for="name">Name (optional)</label>
-    <input id="name" type="text" formControlName="name" placeholder="Dein Name" />
+  <!-- GRID: 2 Spalten, Nachricht spannt über beide -->
+  <div class="form-grid" role="group" aria-label="Kontaktformular">
+
+    <!-- Name -->
+    <div class="field">
+      <label for="name">Name (optional)</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Dein Name"
+        autocomplete="name" />
+    </div>
+
+    <!-- E-Mail -->
+    <div class="field">
+      <label for="email">E-Mail</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="dein@beispiel.de"
+        autocomplete="email"
+        required />
+      <small class="hint error"
+             *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+        <ng-container *ngIf="form.get('email')?.errors?.['required']">E-Mail ist erforderlich.</ng-container>
+        <ng-container *ngIf="form.get('email')?.errors?.['email']">Bitte eine gültige E-Mail eingeben.</ng-container>
+      </small>
+    </div>
+
+    <!-- Nachricht: über beide Spalten -->
+    <div class="field full-row">
+      <label for="message">Nachricht</label>
+      <textarea
+        id="message"
+        formControlName="message"
+        placeholder="Worum geht’s?"
+        rows="6"
+        required></textarea>
+    </div>
+
+    <!-- Honeypot: im DOM, aber unsichtbar -->
+    <div class="sr-only">
+      <label for="hp">Telefon</label>
+      <input id="hp" type="text" formControlName="hp" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Checkbox (volle Breite) -->
+    <div class="field full-row checkbox">
+      <label><input type="checkbox" formControlName="agree" required /> Ich stimme zu</label>
+    </div>
+
+    <!-- Button (volle Breite) -->
+    <div class="full-row">
+      <button class="btn" type="submit" [disabled]="sending || form.invalid">
+        <span *ngIf="!sending">Senden</span>
+        <span *ngIf="sending">Senden…</span>
+      </button>
+    </div>
+
+    <!-- Status -->
+    <p class="alert success full-row" *ngIf="success">{{ success }}</p>
+    <p class="alert error   full-row" *ngIf="error">{{ error }}</p>
   </div>
-
-  <div class="field">
-    <label for="email">E-Mail</label>
-    <input id="email" type="email" formControlName="email" placeholder="dein@beispiel.de" required />
-  </div>
-
-  <div class="field">
-    <label for="message">Nachricht</label>
-    <textarea id="message" formControlName="message" rows="5" placeholder="Worum geht’s?" required></textarea>
-  </div>
-
-  <!-- Honeypot: im DOM, aber visuell versteckt -->
-  <div class="sr-only">
-    <label for="hp">Telefon</label>
-    <input id="hp" type="text" formControlName="hp" tabindex="-1" autocomplete="off" />
-  </div>
-
-  <div class="field checkbox">
-    <label><input type="checkbox" formControlName="agree" required /> Ich stimme zu</label>
-  </div>
-
-  <button class="btn" type="submit" [disabled]="sending || form.invalid">
-    <span *ngIf="!sending">Senden</span>
-    <span *ngIf="sending">Senden…</span>
-  </button>
-
-  <p class="alert success" *ngIf="success" aria-live="polite">{{ success }}</p>
-  <p class="alert error" *ngIf="error" aria-live="assertive">{{ error }}</p>
 </form>
